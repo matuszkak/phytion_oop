@@ -29,13 +29,15 @@ class Warehouse:
         else:
             newProduct = Product(product_name, price)
             print(newProduct.id, newProduct.name, newProduct.price)
-            self.products.append(product_name)
+            self.products.append(
+                [newProduct.id, newProduct.name, newProduct.price])
             print(f'\nNew product recorded: {product_name}')
 
     def remove_product(self, product_name):
-        if product_name in self.products:
-            self.products.remove(product_name)
-            print(f'\nProduct removed: {product_name}')
+        for product in self.products:
+            if product[1] == product_name:
+                self.products.remove(product)
+                print(f'\nProduct removed: {product_name}')
 
     def display_products(self):
         print(f'\nWarehouse product list:')
@@ -45,8 +47,8 @@ class Warehouse:
 
     def sort_by_price(self, ascending):
         if ascending:
-            self.products.sort(key=2)
-            for product in self:
+            self.products.sort('price')
+            for product in self.products:
                 print(product)
         else:
             for product in self.sort(key='price', reverse=True):
@@ -63,3 +65,6 @@ myWarehouse.add_product('Laptop', 3900.0)
 myWarehouse.add_product('Monitor', 5800.0)
 myWarehouse.add_product('Mouse', 1100.0)
 myWarehouse.display_products()
+myWarehouse.remove_product('Monitor')
+myWarehouse.display_products()
+myWarehouse.sort_by_price(True)
