@@ -31,13 +31,13 @@ class Warehouse:
             print(newProduct.id, newProduct.name, newProduct.price)
             self.products.append(
                 [newProduct.id, newProduct.name, newProduct.price])
-            print(f'\nNew product recorded: {product_name}')
+            print(f'New product recorded in Warehouse: {product_name}')
 
     def remove_product(self, product_name):
         for product in self.products:
             if product[1] == product_name:
                 self.products.remove(product)
-                print(f'\nProduct removed: {product_name}')
+                print(f'\nProduct removed from Warehouse: {product_name}')
 
     def display_products(self):
         print(f'\nWarehouse product list:')
@@ -47,24 +47,31 @@ class Warehouse:
 
     def sort_by_price(self, ascending):
         if ascending:
-            self.products.sort('price')
-            for product in self.products:
-                print(product)
+            return self.products.sort(key=lambda x: x[2])
+            # print(f'\nWarehouse product list by price - ascending order:')
+            # for product in self.products:
+            #     print(f'product_name: {product[1]}, price: {product[2]}')
         else:
-            for product in self.sort(key='price', reverse=True):
-                print(product)
+            return self.products.sort(key=lambda x: x[2], reverse=True)
+            # print(f'\nWarehouse product list by price - descending order:')
+            # for product in self.products:
+            #     print(product)
 
 
-myProduct = Product('alma', 20)
-print(myProduct)
+warehouse = Warehouse()
+warehouse.add_product('Laptop', 3900.0)
+warehouse.add_product('Mobile Phone', 1990.0)
+warehouse.add_product('Camera', 2900.0)
+warehouse.add_product('USB Cable', 24.9)
+warehouse.add_product('Mouse', 49.0)
+warehouse.add_product('Monitor', 949.0)
 
-print(myProduct.id, myProduct.name, myProduct.price)
+warehouse.display_products()
+warehouse.remove_product('Monitor')
 
-myWarehouse = Warehouse()
-myWarehouse.add_product('Laptop', 3900.0)
-myWarehouse.add_product('Monitor', 5800.0)
-myWarehouse.add_product('Mouse', 1100.0)
-myWarehouse.display_products()
-myWarehouse.remove_product('Monitor')
-myWarehouse.display_products()
-myWarehouse.sort_by_price(True)
+warehouse.display_products()
+warehouse.sort_by_price(True)
+
+print(f'\nWarehouse product list by price - ascending order:')
+for product in warehouse.products:
+    print(product)
